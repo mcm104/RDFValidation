@@ -1,0 +1,141 @@
+@prefix bf: <http://id.loc.gov/ontologies/bibframe/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix ex: <http://www.example.org#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix format: <http://www.w3.org/ns/formats/> .
+@prefix ldproc: <https://doi.org/10.6069/uwlib.55.b.2#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdaclass: <http://rdaregistry.info/Elements/c/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix uwrda: <https://doi.org/10.6069/uwlib.55.d.4#> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix wv: <https://vocab.org/waiver/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:structuralMetadataShape
+    a sh:NodeShape ;
+    sh:name "Structural Metadata"@en ;
+    sh:description "Provides high-level information about the schema and internal structure of a dataset."@en ;
+    sh:property
+        ex:exampleResourceShape
+            [ sh:name "Example Resource"@en ;
+              sh:description "Names particularly representative or typical resources in the dataset."@en ] ,
+        ex:inDatasetShape
+            [ sh:name "In Dataset"@en ;
+              sh:description "W3C recommends only one void:inDataset, but it is not required."@en ] ,
+        ex:partitionShape
+            [ sh:name "Class/Property Partition"@en ] ,
+        ex:subsetShape
+            [ sh:name "Subset"@en ] ,
+        ex:uriRegexPatternShape
+            [ sh:name "URI Regex Pattern"@en ] ,
+        ex:uriSpaceShape
+            [ sh:name "URI Space"@en ] ,
+        ex:vocabularyShape
+            [ sh:name "Vocabulary"@en ] ;
+    sh:targetClass void:Dataset .
+
+ex:partitionBlankNodeShape
+    a sh:NodeShape ;
+    sh:name "Partition Blank Node"@en ;
+    sh:description "Used to validate blank nodes used for void:classPartition and void:propertyPartition."@en ;
+    sh:property
+        ex:classesShape
+            [ sh:name "Number of Classes"@en ;
+              sh:description "The total number of distinct classes in the dataset."@en ] ,
+        ex:distinctObjectsShape
+            [ sh:name "Number of Distinct Objects"@en ;
+              sh:description "The total number of distinct objects in the dataset."@en ],
+        ex:distinctSubjectsShape
+            [ sh:name "Number of Distinct Subjects"@en ;
+              sh:description "The total number of distinct subjects in the dataset."@en ] ,
+        ex:documentsShape
+            [ sh:name "Number of Documents"@en ;
+              sh:description "If the dataset is published as a set of individual documents, such as RDF/XML documents or RDFa-annotated web pages, then this property indicates the total number of such documents. Non-RDF documents, such as web pages in HTML or images, are usually not included in this count. This property is intended for datasets where the total number of triples or entities is hard to determine."@en ] ;
+        ex:entitiesShape
+            [ sh:name "Number of Entities"@en ;
+              sh:description "The total number of entities that are described in the dataset."@en ] ,
+        ex:propertiesShape
+            [ sh:name "Number of Properties"@en ;
+              sh:description "The total number of distinct properties in the dataset."@en ] ,
+        ex:triplesShape
+            [ sh:name "Number of Triples"@en ;
+              sh:description "The total number of triples contained in the dataset."@en ].
+
+ex:classesShape
+    a sh:PropertyShape ;
+    sh:path void:classes ;
+    sh:datatype xsd:integer .
+
+ex:distinctObjectsShape
+    a sh:PropertyShape ;
+    sh:path void:distinctObjects ;
+    sh:datatype xsd:integer .
+
+ex:distinctSubjectsShape
+    a sh:PropertyShape ;
+    sh:path void:distinctSubjects ;
+    sh:datatype xsd:integer .
+
+ex:documentsShape
+    a sh:PropertyShape ;
+    sh:path void:documents ;
+    sh:datatype xsd:integer .
+
+ex:entitiesShape
+    a sh:PropertyShape ;
+    sh:path void:entities ;
+    sh:datatype xsd:integer .
+
+ex:exampleResourceShape
+    a sh:PropertyShape ;
+    sh:path void:exampleResource ;
+    sh:nodeKind sh:IRI ;
+    sh:datatype rdfs:Resource .
+
+ex:inDatasetShape
+    a sh:PropertyShape ;
+    sh:path void:inDataset ;
+    sh:nodeKind sh:IRI ;
+    sh:class void:Dataset ;
+    sh:maxCount 1 .
+
+ex:partitionShape
+    a sh:PropertyShape ;
+    sh:path void:classPartition , void:propertyPartition ;
+    sh:nodeKind sh:BlankNode ;
+    sh:node ex:partitionBlankNodeShape .
+
+ex:propertiesShape
+    a sh:PropertyShape ;
+    sh:path void:properties ;
+    sh:datatype xsd:integer .
+
+ex:subsetShape
+    a sh:PropertyShape ;
+    sh:path void:subset ;
+    sh:nodeKind sh:IRI ;
+    sh:class void:Dataset .
+
+ex:triplesShape
+    a sh:PropertyShape ;
+    sh:path void:triples ;
+    sh:datatype xsd:integer .
+
+ex:uriRegexPatternShape
+    a sh:PropertyShape ;
+    sh:path void:uriRegexPattern ;
+    sh:nodeKind sh:Literal .
+
+ex:uriSpaceShape
+    a sh:PropertyShape ;
+    sh:path void:uriSpace ;
+    sh:nodeKind sh:Literal .
+
+ex:vocabularyShape
+    a sh:PropertyShape ;
+    sh:path void:vocabulary ;
+    sh:nodeKind sh:IRI .

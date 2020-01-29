@@ -1,0 +1,71 @@
+@prefix bf: <http://id.loc.gov/ontologies/bibframe/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix ex: <http://www.example.org#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix format: <http://www.w3.org/ns/formats/> .
+@prefix ldproc: <https://doi.org/10.6069/uwlib.55.b.2#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdaclass: <http://rdaregistry.info/Elements/c/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix uwrda: <https://doi.org/10.6069/uwlib.55.d.4#> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix wv: <https://vocab.org/waiver/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:voidMetadataDescriptionShape
+    a sh:NodeShape ;
+    sh:property
+        ex:titleShape
+            [ sh:name "Title"@en ;
+              sh:description "This is the title of the VoID file, not the dataset being described."@en ] ,
+        ex:topicShape
+            [ sh:name "Topic"@en ;
+              sh:description "Use foaf:primaryTopic if the VoID file describes a single dataset; use foaf:topic if it describes several datasets of equal importance."@en ] ,
+        ex:creatorShape
+            [ sh:name "Creator"@en ;
+              sh:description "This is the creator of the VoID file, not the dataset being described."@en ] ,
+        ex:creationShape
+            [ sh:name "Date of Creation"@en ;
+              sh:description "This is the creation date of the VoID file, not the dataset being described."@en ] ;
+    sh:targetClass void:DataDescription .
+
+ex:generalDatasetMetadataShape
+    a sh:NodeShape ;
+    sh:property ex:homepageShape
+        [ sh:name "Homepage"@en ;
+          sh:description "Use for the homepage for the dataset. Do not use for related pages that are not specifically about the dataset."@en ] ,
+    sh:property ex:pageShape ,
+    sh:targetClass void:Dataset .
+
+ex:creatorShape
+    a sh:PropertyShape ;
+    sh:path dct:creator ;
+    sh:nodeKind sh:IRIOrLiteral .
+
+ex:titleShape
+    a sh:PropertyShape ;
+    sh:path dct:title ;
+    sh:nodeKind sh:Literal ;
+    sh:datatype rdf:langString ;
+    sh:uniqueLang true ;
+    sh:minCount 1 .
+
+ex:topicShape
+    a sh:PropertyShape ;
+    sh:path [ sh:alternativePath (foaf:primaryTopic foaf:topic) ] ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 .
+
+ex:homepageShape
+    a sh:PropertyShape ;
+    sh:path foaf:homepage ;
+    sh:nodeKind sh:IRI ;
+    sh:maxCount 1 .
+
+ex:pageShape
+    a sh:Property Shape ;
+    sh:path foaf:page ;
+    sh:nodeKind sh:IRI .

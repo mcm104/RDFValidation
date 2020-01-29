@@ -1,0 +1,162 @@
+@prefix bf: <http://id.loc.gov/ontologies/bibframe/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix ex: <http://www.example.org#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix format: <http://www.w3.org/ns/formats/> .
+@prefix ldproc: <https://doi.org/10.6069/uwlib.55.b.2#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdaclass: <http://rdaregistry.info/Elements/c/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix uwrda: <https://doi.org/10.6069/uwlib.55.d.4#> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix wv: <https://vocab.org/waiver/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:generalDatasetMetadataShape
+    a sh:NodeShape ;
+    sh:property
+        ex:contributorShape
+            [ sh:name "Contributor"@en ] ,
+        ex:creationShape
+            [ sh:name "Date of Creation"@en ] ,
+        ex:creatorShape
+            [ sh:name "Creator"@en ] ,
+        ex:dateShape
+            [ sh:name "Relevant Date"@en ;
+              sh:description "A point or period of time associated with an event in the life-cycle of the resource."@en ] ,
+        ex:descriptionShape
+            [ sh:name "Description"@en ] ,
+        ex:featureShape
+            [ sh:name "Feature"@en ] ,
+        ex:homepageShape
+            [ sh:name "Homepage"@en ;
+              sh:description "Use for the homepage for the dataset. Do not use for related pages that are not specifically about the dataset."@en ] ,
+        ex:issuedShape
+            [ sh:name "Date Issued"@en ] ,
+        ex:licenseShape
+            [ sh:name "License"@en ] ,
+        ex:normsShape
+            [ sh:name "Norms"@en ;
+              sh:description "Represent the general principles or "code of conduct" adopted by a community for access and use of resources."@en ] ,
+        ex:pageShape
+            [ sh:name "Other Pages"@en ;
+              sh:description "Use for pages related to the dataset."@en ] ,
+        ex:publisherShape
+            [ sh:name "Publisher"@en ] ,
+        ex:sourceShape
+            [ sh:name "Source"@en ;
+              sh:description "A related resource from which the dataset is derived."@en ] ,
+        ex:subjectShape
+            [ sh:name "Subject"@en ] ,
+        ex:titleShape
+            [ sh:name "Title"@en ] ,
+        ex:waiverShape
+            [ sh:name "Waiver"@en ;
+              sh:description "Best practice is use the URI of a waiver legal document as the value of this property."@en ] ;
+    sh:targetClass void:Dataset .
+
+ex:contributorShape
+    a sh:PropertyShape ;
+    sh:path dct:contributor ;
+    sh:nodeKind sh:IRI .
+
+ex:creationShape
+    a sh:PropertyShape ;
+    sh:path dct:created ;
+    sh:or (
+      [sh:datatype xsd:date]
+      [sh:datatype xsd:gYear]
+    ) ;
+    sh:maxCount 1 .
+
+ex:creatorShape
+    a sh:PropertyShape ;
+    sh:path dct:creator ;
+    sh:nodeKind sh:IRIOrLiteral ;
+    sh:minCount 1 .
+
+ex:dateShape
+    a sh:PropertyShape ;
+    sh:path dct:date ;
+    sh:or (
+      [sh:datatype xsd:date]
+      [sh:datatype xsd:gYear]
+    ) .
+
+ex:descriptionShape
+    a sh:PropertyShape ;
+    sh:path dct:description ;
+    sh:nodeKind sh:Literal ;
+    sh:uniqueLang true ;
+    sh:minCount 1 .
+
+ex:featureShape
+    a sh:PropertyShape ;
+    sh:path void:feature ;
+    sh:in (
+      format:N3
+      format:N-Triples
+      format:RDF_XML
+      format:RDFa
+      format:Turtle
+    ) .
+
+ex:homepageShape
+    a sh:PropertyShape ;
+    sh:path foaf:homepage ;
+    sh:nodeKind sh:IRI ;
+    sh:maxCount 1 .
+
+ex:issuedShape
+    a sh:PropertyShape ;
+    sh:path dct:issued ;
+    sh:or (
+      [sh:datatype xsd:date]
+      [sh:datatype xsd:gYear]
+    ) .
+
+ex:licenseShape
+    a sh:PropertyShape ;
+    sh:path dct:license ;
+    sh:nodeKind sh:IRI .
+
+ex:normsShape
+    a sh:PropertyShape ;
+    sh:path wv:norms ;
+    sh:nodeKind sh:IRI .
+
+ex:pageShape
+    a sh:PropertyShape ;
+    sh:path foaf:page ;
+    sh:nodeKind sh:IRI .
+
+ex:publisherShape
+    a sh:PropertyShape ;
+    sh:path dct:publisher ;
+    sh:nodeKind sh:IRI .
+
+ex:sourceShape
+    a sh:PropertyShape ;
+    sh:path dct:source ;
+    sh:nodeKind sh:IRI .
+
+ex:subjectShape
+    a sh:PropertyShape ;
+    sh:path dct:subject ;
+    sh:nodeKind sh:IRI .
+
+ex:titleShape
+    a sh:PropertyShape ;
+    sh:path dct:title ;
+    sh:nodeKind sh:Literal ;
+    sh:datatype rdf:langString ;
+    sh:uniqueLang true ;
+    sh:minCount 1 .
+
+ex:waiverShape
+    a sh:PropertyShape ;
+    sh:path wv:waiver ;
+    sh:nodeKind sh:IRIOrLiteral .
